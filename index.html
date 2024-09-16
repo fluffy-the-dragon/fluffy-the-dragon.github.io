@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Fluffy the Dragon</title>
+    <style>
+        /* Body for futuristic feel */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+            background: radial-gradient(circle at center, #0b0b0b 10%, #000000 100%), url('https://i.imgur.com/Qn1W0n9.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Starry background effect with random movement */
+        @keyframes starMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(calc(100% * -1), calc(100% * -1));
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .star {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 2px;
+            height: 2px;
+            animation: starMove 10s infinite linear;
+            opacity: 0.7;
+        }
+
+        .star:nth-child(odd) {
+            animation-duration: 12s;
+            animation-delay: -2s;
+        }
+
+        .star:nth-child(even) {
+            animation-duration: 15s;
+            animation-delay: -5s;
+        }
+
+        .container {
+            max-width: 900px;
+            background: rgba(20, 20, 35, 0.85);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.8), 0 0 60px rgba(255, 0, 255, 0.8);
+            backdrop-filter: blur(20px);
+            animation: pulse 5s infinite alternate;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            from {
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            }
+            to {
+                box-shadow: 0 0 60px rgba(255, 0, 255, 0.8);
+            }
+        }
+
+        /* Text glow effect */
+        h1, h2 {
+            color: #f5f5f5;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.8);
+            transition: text-shadow 0.5s ease;
+        }
+
+        h1:hover, h2:hover {
+            text-shadow: 0 0 40px rgba(255, 0, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.8);
+        }
+
+        /* Enhanced paragraph text */
+        p {
+            line-height: 1.8;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Link effects */
+        a {
+            color: #00ffff;
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        a:hover {
+            color: #ff00ff;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.8);
+        }
+
+        a:hover::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 0, 255, 0.8);
+            left: 0;
+            bottom: -5px;
+            animation: pulseEffect 0.5s linear;
+        }
+
+        @keyframes pulseEffect {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        /* Particle effect */
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            animation: particles 3s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .particle:nth-child(1) {
+            top: 10%;
+            left: 15%;
+            animation-duration: 4s;
+        }
+
+        .particle:nth-child(2) {
+            top: 25%;
+            right: 25%;
+            animation-duration: 3.5s;
+        }
+
+        .particle:nth-child(3) {
+            top: 50%;
+            left: 70%;
+            animation-duration: 4.5s;
+        }
+
+        .particle:nth-child(4) {
+            bottom: 20%;
+            left: 40%;
+            animation-duration: 5s;
+        }
+
+        /* Futuristic header and footer */
+        header,
+        footer {
+            background-color: rgba(30, 30, 30, 0.95);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.8em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.9);
+            animation: footerGlow 5s infinite alternate;
+        }
+
+        @keyframes footerGlow {
+            from {
+                box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            }
+            to {
+                box-shadow: 0 0 60px rgba(0, 255, 255, 0.9);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Star particles with enhanced random movement -->
+    <div class="star" style="top: 5%; left: 10%; animation-duration: 15s;"></div>
+    <div class="star" style="top: 20%; left: 40%; animation-duration: 12s;"></div>
+    <div class="star" style="top: 45%; left: 25%; animation-duration: 18s;"></div>
+    <div class="star" style="top: 60%; left: 55%; animation-duration: 14s;"></div>
+    <div class="star" style="top: 80%; left: 70%; animation-duration: 20s;"></div>
+
+    <header>
+        About Me
+    </header>
+
+    <div class="container">
+        <!-- Particle effects with randomized positions -->
+        <div class="particle" style="top: 10%; left: 15%;"></div>
+        <div class="particle" style="top: 30%; right: 20%;"></div>
+        <div class="particle" style="top: 50%; left: 60%;"></div>
+        <div class="particle" style="bottom: 20%; left: 40%;"></div>
+        <div class="particle" style="top: 70%; right: 10%;"></div>
+
+        <section id="intro">
+            <h1>Hello, I'm Fluffy the Dragon!</h1>
+            <p>
+                I'm a fluffy dragon soaring above the clouds, embracing the wonders of life. My interests include music and drawing, though I'm still honing my artistic skills. Despite my shyness and limited social skills, I'm always eager to make new friends and explore new adventures!
+            </p>
+        </section>
+
+        <section id="current-projects">
+            <h2>Current Projects</h2>
+            <p>
+                My main focus right now is expanding my Dragon Paws community and creating engaging content. I enjoy spending time on YouTube, discovering new ideas and inspirations. My goal is to make Dragon Paws a vibrant and welcoming place for everyone!
+            </p>
+        </section>
+
+        <section id="connect">
+            <h2>Connect With Me</h2>
+            <p>
+                Feel free to join my <a href="https://discord.com/invite/swnSq4xCHq" target="_blank">Discord server</a> or visit the <a href="https://sites.google.com/view/dragon-paws/home" target="_blank">Dragon Paws website</a> to learn more about what we do.
+            </p>
+            <p>
+                You can also reach me via email: <a href="mailto:dragonpaws.contact@gmail.com" target="_blank">dragonpaws.contact@gmail.com</a>. Please avoid spamming, as I like to keep my inbox manageable.
+            </p>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2024 Fluffy the Dragon. All rights reserved.
+    </footer>
+</body>
+
+</html>
