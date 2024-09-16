@@ -5,54 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Fluffy</title>
     <style>
+        /* Body styling for futuristic feel */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #50c878; /* Emerald background */
-            color: #dc143c; /* Crimson text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #50c878, #2e8b57); /* Gradient emerald */
+            color: #f5f5f5; /* Light text for contrast */
             margin: 0;
             padding: 0;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
         }
+        /* Container with glow effect */
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            padding: 20px;
-            color: #333; /* Container text color */
+            max-width: 900px;
+            background: rgba(0, 0, 0, 0.75); /* Semi-transparent black */
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Futuristic glow */
+            backdrop-filter: blur(10px);
         }
+        /* Header and footer futuristic styling */
         header, footer {
-            background-color: #dc143c; /* Crimson background for header and footer */
+            background-color: rgba(255, 0, 0, 0.7); /* Semi-transparent crimson */
             color: white;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
         }
+        /* Header bottom border glow */
         header {
-            border-bottom: 3px solid #850a29; /* Darker crimson */
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
         }
+        /* Footer fixed with glowing border */
         footer {
             position: fixed;
             width: 100%;
             bottom: 0;
-            border-top: 3px solid #850a29;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
         }
+        /* Enhanced typography */
         h1, h2 {
-            color: #dc143c; /* Crimson headings */
+            color: #f5f5f5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
         p {
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 1.1em;
         }
+        /* Link styling with hover effect */
         a {
-            color: #850a29; /* Darker crimson for links */
+            color: #0ff; /* Bright cyan links */
             text-decoration: none;
+            transition: color 0.3s ease;
         }
         a:hover {
-            text-decoration: underline;
+            color: #f0f; /* Magenta hover */
         }
-        .social-links img {
-            width: 30px;
-            margin: 0 10px;
+        /* Futuristic animations */
+        body:hover {
+            background: linear-gradient(135deg, #2e8b57, #50c878); /* Reverse emerald gradient */
+        }
+        /* Smooth hover for container */
+        .container:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .container {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -65,35 +100,30 @@
         <section id="intro">
             <h1>Hello, I'm Fluffy!</h1>
             <p>
-                Welcome im just a derg flying above the clouds loving life. i currently enjoy music and drawing but im bad at drawing ): im also a shy derg  never reslly gotten able to speak in a vc or anything like that without someone mentioning me to speak or making me speak so i have bad soclal skills and my grammer is bad too as evident by this page 
+                Welcome! I'm just a fluffy derg soaring above the clouds, loving life. I enjoy music and drawing (though I’m still learning to improve my drawing skills). I'm a bit of a shy derg, and I'm not too great at socializing or talking in voice chats without some encouragement, so my social skills need a bit of work.
             </p>
         </section>
 
         <section id="current-projects">
             <h2>Current Projects</h2>
             <p>
-                Currently, I'm working on expanding my Dragon Paws community and creating engaging content. When I'm not managing my server or coding, I enjoy scrollinvg youtube.
+                Right now, I’m focused on growing the Dragon Paws community and creating more fun content. When I'm not working on that, I spend time scrolling through YouTube, discovering new videos and ideas!
             </p>
         </section>
 
         <section id="connect">
             <h2>Connect With Me</h2>
             <p>
-                You can connect with me and the community on my Discord <a href="https://discord.com/invite/swnSq4xCHq" target="_blank">Discord server</a>. I'm also active on my <a href="https://sites.google.com/view/dragon-paws/home" target="_blank">Dragon Paws website</a>.
+                Join me and the community on my <a href="https://discord.com/invite/swnSq4xCHq" target="_blank">Discord server</a> or check out my <a href="https://sites.google.com/view/dragon-paws/home" target="_blank">Dragon Paws website</a> for more details.
             </p>
             <p>
-                Feel free to reach out to me through <a href="mailto:dragonpaws.contact@gmail.com" target="_blank">email</a>. Please don't spam me :(
+                You can also reach me at <a href="mailto:dragonpaws.contact@gmail.com" target="_blank">dragonpaws.contact@gmail.com</a>. Please don't spam me :(
             </p>
         </section>
     </div>
 
     <footer>
-        &copy; [Year] Fluffy. All rights reserved.
-        <div class="social-links">
-            <a href="[Your Twitter Link]" target="_blank"><img src="twitter-icon.png" alt="Twitter"></a>
-            <a href="[Your GitHub Link]" target="_blank"><img src="github-icon.png" alt="GitHub"></a>
-            <a href="[Your LinkedIn Link]" target="_blank"><img src="linkedin-icon.png" alt="LinkedIn"></a>
-        </div>
+        &copy; 2024 Fluffy. All rights reserved.
     </footer>
 </body>
 </html>
