@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Fluffy</title>
     <style>
-        /* Body styling for futuristic feel */
+        /* Body for futuristic feel */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #50c878, #2e8b57); /* Gradient emerald */
+            font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+            background: radial-gradient(circle at center, #0b0b0b 10%, #000000 100%), url('https://i.imgur.com/Qn1W0n9.jpg'); /* Deep space image and gradient */
+            background-size: cover;
+            background-attachment: fixed;
             color: #f5f5f5; /* Light text for contrast */
             margin: 0;
             padding: 0;
@@ -18,69 +20,109 @@
             min-height: 100vh;
             overflow-x: hidden;
             transition: background 0.5s ease;
+            animation: stars 40s infinite linear; /* Subtle space animation */
         }
-        /* Container with glow effect */
+
+        /* Starry background effect */
+        @keyframes stars {
+            from { background-position: 0 0; }
+            to { background-position: 10000px 10000px; }
+        }
+
+        /* Glowing futuristic container */
         .container {
             max-width: 900px;
-            background: rgba(0, 0, 0, 0.75); /* Semi-transparent black */
+            background: rgba(20, 20, 35, 0.85); /* Dark semi-transparent background */
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Futuristic glow */
-            backdrop-filter: blur(10px);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.8), 0 0 60px rgba(255, 0, 255, 0.8); /* Neon glow */
+            backdrop-filter: blur(20px);
+            animation: pulse 5s infinite alternate; /* Epic pulse effect */
+            position: relative;
         }
-        /* Header and footer futuristic styling */
+
+        @keyframes pulse {
+            from { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); }
+            to { box-shadow: 0 0 60px rgba(255, 0, 255, 0.8); }
+        }
+
+        /* Futuristic particles floating around */
+        @keyframes particles {
+            0% { opacity: 0.3; transform: translateY(0px); }
+            50% { opacity: 1; transform: translateY(-20px); }
+            100% { opacity: 0.3; transform: translateY(0px); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            animation: particles 3s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .particle:nth-child(1) { top: 10%; left: 15%; animation-duration: 4s; }
+        .particle:nth-child(2) { top: 25%; right: 25%; animation-duration: 3.5s; }
+        .particle:nth-child(3) { top: 50%; left: 70%; animation-duration: 4.5s; }
+        .particle:nth-child(4) { bottom: 20%; left: 40%; animation-duration: 5s; }
+
+        /* Futuristic header and footer */
         header, footer {
-            background-color: rgba(255, 0, 0, 0.7); /* Semi-transparent crimson */
+            background-color: rgba(30, 30, 30, 0.95); /* Space-like grey */
             color: white;
             padding: 15px;
             border-radius: 12px;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.8em;
             letter-spacing: 2px;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
-        }
-        /* Header bottom border glow */
-        header {
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.9);
+            animation: footerGlow 5s infinite alternate;
         }
-        /* Footer fixed with glowing border */
-        footer {
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            border-top: 2px solid rgba(255, 255, 255, 0.3);
+
+        @keyframes footerGlow {
+            from { box-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
+            to { box-shadow: 0 0 60px rgba(0, 255, 255, 0.9); }
         }
-        /* Enhanced typography */
+
+        /* Glowing text and hover effect for headers */
         h1, h2 {
             color: #f5f5f5;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            transition: text-shadow 0.5s ease;
         }
+
+        h1:hover, h2:hover {
+            text-shadow: 0 0 40px rgba(255, 0, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.8);
+        }
+
+        /* Enhanced paragraph text */
         p {
             line-height: 1.8;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
-        /* Link styling with hover effect */
+
+        /* Futuristic link styling */
         a {
-            color: #0ff; /* Bright cyan links */
+            color: #00ffff; /* Neon cyan */
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            font-weight: bold;
         }
+
         a:hover {
-            color: #f0f; /* Magenta hover */
+            color: #ff00ff; /* Neon magenta */
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.8);
         }
-        /* Futuristic animations */
-        body:hover {
-            background: linear-gradient(135deg, #2e8b57, #50c878); /* Reverse emerald gradient */
-        }
-        /* Smooth hover for container */
-        .container:hover {
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
-        }
-        /* Responsive design */
+
+        /* Responsive for mobile */
         @media (max-width: 768px) {
             body {
                 padding: 20px;
@@ -97,27 +139,33 @@
     </header>
 
     <div class="container">
+        <!-- Futuristic particles for visual effect -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+
         <section id="intro">
             <h1>Hello, I'm Fluffy!</h1>
             <p>
-                Welcome! I'm just a fluffy derg soaring above the clouds, loving life. I enjoy music and drawing (though I’m still learning to improve my drawing skills). I'm a bit of a shy derg, and I'm not too great at socializing or talking in voice chats without some encouragement, so my social skills need a bit of work.
+                I'm a fluffy derg soaring above the clouds, enjoying life. I love music and drawing, though I'm still working on my drawing skills. I'm a shy dragon with limited social skills, but always happy to make new friends!
             </p>
         </section>
 
         <section id="current-projects">
             <h2>Current Projects</h2>
             <p>
-                Right now, I’m focused on growing the Dragon Paws community and creating more fun content. When I'm not working on that, I spend time scrolling through YouTube, discovering new videos and ideas!
+                My main focus right now is growing my Dragon Paws community and making awesome content. When I'm not busy, I spend my time exploring YouTube and finding new ideas!
             </p>
         </section>
 
         <section id="connect">
             <h2>Connect With Me</h2>
             <p>
-                Join me and the community on my <a href="https://discord.com/invite/swnSq4xCHq" target="_blank">Discord server</a> or check out my <a href="https://sites.google.com/view/dragon-paws/home" target="_blank">Dragon Paws website</a> for more details.
+                Join my <a href="https://discord.com/invite/swnSq4xCHq" target="_blank">Discord server</a> or check out the <a href="https://sites.google.com/view/dragon-paws/home" target="_blank">Dragon Paws website</a>.
             </p>
             <p>
-                You can also reach me at <a href="mailto:dragonpaws.contact@gmail.com" target="_blank">dragonpaws.contact@gmail.com</a>. Please don't spam me :(
+                You can also reach me via email: <a href="mailto:dragonpaws.contact@gmail.com" target="_blank">dragonpaws.contact@gmail.com</a>. Please don't spam me :(
             </p>
         </section>
     </div>
