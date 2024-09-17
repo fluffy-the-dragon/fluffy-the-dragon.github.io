@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Fluffy the Dragon</title>
     <style>
-        /* Body for futuristic feel */
+        /* Overall body with deeper space and epic glow */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
-            background: radial-gradient(circle at center, #0b0b0b 10%, #000000 100%), url('https://i.imgur.com/Qn1W0n9.jpg');
+            background: linear-gradient(120deg, #0a0a23, #000000), url('https://i.imgur.com/Qn1W0n9.jpg');
             background-size: cover;
             background-attachment: fixed;
             color: #f5f5f5;
@@ -24,236 +24,171 @@
             overflow: hidden;
         }
 
-        /* Starry background effect with random movement */
-        @keyframes starMove {
-            0% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(calc(100% * -1), calc(100% * -1));
-            }
-            100% {
-                transform: translate(0, 0);
-            }
-        }
-
+        /* Create starry sky with deeper, more epic dynamics */
         .star {
             position: absolute;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
-            width: 2px;
-            height: 2px;
-            animation: starMove 10s infinite linear;
-            opacity: 0.7;
+            width: 3px;
+            height: 3px;
+            animation: starTwinkle 3s infinite alternate ease-in-out, starMove 25s linear infinite;
         }
 
-        .star:nth-child(odd) {
-            animation-duration: 12s;
-            animation-delay: -2s;
+        @keyframes starTwinkle {
+            0% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0.8; transform: scale(0.7); }
+        }
+
+        @keyframes starMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(calc(100vw - 100px), calc(100vh - 100px)); }
         }
 
         .star:nth-child(even) {
-            animation-duration: 15s;
-            animation-delay: -5s;
+            animation-duration: 40s;
         }
 
+        /* Glowing, radiant container with dynamic pulses */
         .container {
             max-width: 900px;
-            background: rgba(20, 20, 35, 0.85);
+            background: rgba(20, 20, 35, 0.95);
             border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.8), 0 0 60px rgba(255, 0, 255, 0.8);
-            backdrop-filter: blur(20px);
-            animation: pulse 5s infinite alternate;
+            padding: 40px;
+            box-shadow: 0 0 80px rgba(0, 255, 255, 0.9), 0 0 120px rgba(255, 0, 255, 0.9);
+            backdrop-filter: blur(25px);
+            animation: containerGlow 8s infinite ease-in-out;
             position: relative;
             z-index: 1;
         }
 
-        @keyframes pulse {
-            from {
-                box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
-            }
-            to {
-                box-shadow: 0 0 60px rgba(255, 0, 255, 0.8);
-            }
+        @keyframes containerGlow {
+            0% { box-shadow: 0 0 60px rgba(255, 0, 255, 0.9), 0 0 80px rgba(0, 255, 255, 0.9); }
+            50% { box-shadow: 0 0 90px rgba(0, 255, 255, 1), 0 0 120px rgba(255, 0, 255, 1); }
+            100% { box-shadow: 0 0 120px rgba(255, 0, 255, 0.9), 0 0 160px rgba(0, 255, 255, 1); }
         }
 
-        /* Text glow effect */
+        /* Headings with neon glow, pulse, and dramatic animation */
         h1, h2 {
-            color: #f5f5f5;
+            color: #fff;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.8);
-            transition: text-shadow 0.5s ease;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            text-shadow: 0 0 40px rgba(0, 255, 255, 1), 0 0 50px rgba(255, 0, 255, 1);
+            transition: text-shadow 0.4s ease;
+            animation: headingPulse 6s infinite alternate ease-in-out;
         }
 
-        h1:hover, h2:hover {
-            text-shadow: 0 0 40px rgba(255, 0, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.8);
+        @keyframes headingPulse {
+            from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.8); }
+            to { text-shadow: 0 0 60px rgba(255, 0, 255, 1), 0 0 100px rgba(0, 255, 255, 1); }
         }
 
-        /* Enhanced paragraph text */
+        /* Paragraphs with radiant, glowing text */
         p {
+            font-size: 1.3em;
             line-height: 1.8;
-            font-size: 1.2em;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
-        /* Link effects */
+        /* Super dynamic and glowing link styles */
         a {
             color: #00ffff;
             text-decoration: none;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-            font-weight: bold;
             position: relative;
-            overflow: hidden;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.9);
+            transition: all 0.4s ease;
         }
 
         a:hover {
             color: #ff00ff;
-            text-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.8);
+            text-shadow: 0 0 50px rgba(255, 0, 255, 1), 0 0 80px rgba(0, 255, 255, 1);
         }
 
-        a:hover::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: rgba(255, 0, 255, 0.8);
-            left: 0;
-            bottom: -5px;
-            animation: pulseEffect 0.5s linear;
-        }
-
-        @keyframes pulseEffect {
-            from {
-                transform: scaleX(0);
-            }
-            to {
-                transform: scaleX(1);
-            }
-        }
-
-        /* Particle effect */
+        /* Particle systems with smooth, randomized animations */
         .particle {
             position: absolute;
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: rgba(0, 255, 255, 0.8);
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-            animation: particles 3s infinite ease-in-out;
-            pointer-events: none;
+            background-color: rgba(255, 0, 255, 0.7);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.9), 0 0 30px rgba(255, 0, 255, 0.9);
+            animation: particleGlow 8s infinite ease-in-out alternate;
         }
 
-        .particle:nth-child(1) {
-            top: 10%;
-            left: 15%;
-            animation-duration: 4s;
+        @keyframes particleGlow {
+            from { transform: translateY(0); background-color: rgba(0, 255, 255, 0.8); }
+            to { transform: translateY(-100px); background-color: rgba(255, 0, 255, 0.8); }
         }
 
-        .particle:nth-child(2) {
-            top: 25%;
-            right: 25%;
-            animation-duration: 3.5s;
-        }
-
-        .particle:nth-child(3) {
-            top: 50%;
-            left: 70%;
-            animation-duration: 4.5s;
-        }
-
-        .particle:nth-child(4) {
-            bottom: 20%;
-            left: 40%;
-            animation-duration: 5s;
-        }
-
-        /* Futuristic header and footer */
-        header,
-        footer {
-            background-color: rgba(30, 30, 30, 0.95);
+        /* Header/footer with intense glow and transition effects */
+        header, footer {
+            background: rgba(30, 30, 30, 0.95);
             color: white;
-            padding: 15px;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
-            font-size: 1.8em;
-            letter-spacing: 2px;
+            font-size: 2em;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.9);
-            animation: footerGlow 5s infinite alternate;
+            box-shadow: 0 0 80px rgba(0, 255, 255, 1), 0 0 100px rgba(255, 0, 255, 1);
+            animation: footerHeaderGlow 5s infinite alternate;
         }
 
-        @keyframes footerGlow {
-            from {
-                box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
-            }
-            to {
-                box-shadow: 0 0 60px rgba(0, 255, 255, 0.9);
-            }
+        @keyframes footerHeaderGlow {
+            0% { box-shadow: 0 0 50px rgba(0, 255, 255, 0.9), 0 0 70px rgba(255, 0, 255, 0.9); }
+            100% { box-shadow: 0 0 100px rgba(255, 0, 255, 1), 0 0 130px rgba(0, 255, 255, 1); }
         }
 
-        /* Responsive design */
+        /* Responsive for mobile */
         @media (max-width: 768px) {
-            body {
-                padding: 20px;
-            }
-            .container {
-                padding: 20px;
-            }
+            body { padding: 15px; }
+            .container { padding: 25px; }
         }
     </style>
 </head>
 
 <body>
-    <!-- Star particles with enhanced random movement -->
-    <div class="star" style="top: 5%; left: 10%; animation-duration: 15s;"></div>
-    <div class="star" style="top: 20%; left: 40%; animation-duration: 12s;"></div>
-    <div class="star" style="top: 45%; left: 25%; animation-duration: 18s;"></div>
-    <div class="star" style="top: 60%; left: 55%; animation-duration: 14s;"></div>
-    <div class="star" style="top: 80%; left: 70%; animation-duration: 20s;"></div>
 
-    <header>
-        About Me
-    </header>
+    <!-- Intensified star particle effects -->
+    <div class="star" style="top: 5%; left: 20%;"></div>
+    <div class="star" style="top: 15%; left: 50%;"></div>
+    <div class="star" style="top: 30%; left: 80%;"></div>
+    <div class="star" style="top: 45%; left: 10%;"></div>
+    <div class="star" style="top: 70%; left: 40%;"></div>
+
+    <header>About Me</header>
 
     <div class="container">
-        <!-- Particle effects with randomized positions -->
-        <div class="particle" style="top: 10%; left: 15%;"></div>
-        <div class="particle" style="top: 30%; right: 20%;"></div>
-        <div class="particle" style="top: 50%; left: 60%;"></div>
-        <div class="particle" style="bottom: 20%; left: 40%;"></div>
-        <div class="particle" style="top: 70%; right: 10%;"></div>
+        <!-- Particles for ambient floating effect -->
+        <div class="particle" style="top: 15%; left: 30%;"></div>
+        <div class="particle" style="top: 45%; right: 15%;"></div>
+        <div class="particle" style="top: 65%; left: 50%;"></div>
+        <div class="particle" style="bottom: 10%; left: 10%;"></div>
 
         <section id="intro">
-            <h1>Hello, I'm Fluffy the Dragon!</h1>
+            <h1>Hey! I'm Fluffy the Dragon!</h1>
             <p>
-                I'm a fluffy dragon soaring above the clouds, embracing the wonders of life. My interests include music and drawing, though I'm still honing my artistic skills. Despite my shyness and limited social skills, I'm always eager to make new friends and explore new adventures!
+                I’m a derg flying above the clouds enjoying life. lifes good but sometimes it gets sad i have been there before. but dont stop because its sad push because its happening
             </p>
         </section>
 
-        <section id="current-projects">
-            <h2>Current Projects</h2>
-            <p>
-                My main focus right now is expanding my Dragon Paws community and creating engaging content. I enjoy spending time on YouTube, discovering new ideas and inspirations. My goal is to make Dragon Paws a vibrant and welcoming place for everyone!
-            </p>
-        </section>
-
-        <section id="connect">
+        <section id="contact">
             <h2>Connect With Me</h2>
             <p>
                 Feel free to join my <a href="https://discord.com/invite/swnSq4xCHq" target="_blank">Discord server</a> or visit the <a href="https://sites.google.com/view/dragon-paws/home" target="_blank">Dragon Paws website</a> to learn more about what we do.
             </p>
             <p>
-                You can also reach me via email: <a href="mailto:dragonpaws.contact@gmail.com" target="_blank">dragonpaws.contact@gmail.com</a>. Please avoid spamming, as I like to keep my inbox manageable.
+                You can also reach me via email: <a href="mailto:destroyercomqq6@gmail.com" target="_blank">here</a>. Please dont spam my email as i dont want to deal with a pipebomb in my inbox.
             </p>
         </section>
     </div>
 
     <footer>
-        &copy; 2024 Fluffy the Dragon. All rights reserved.
+        &copy; 2024 Fluffy the Dragon. (:
     </footer>
+
 </body>
 
 </html>
