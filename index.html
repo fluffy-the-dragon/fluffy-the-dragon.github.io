@@ -38,14 +38,18 @@
 
         /* Glowing container with blur */
         .container {
-            max-width: 800px; /* Made the container smaller */
-            background: rgba(20, 20, 35, 0.9); /* Optional: keep a slight color for contrast */
+            max-width: 800px; /* Container width */
+            background: rgba(20, 20, 35, 0.5); /* 50% transparent background */
             border-radius: 10px;
             padding: 30px;
             box-shadow: 0 0 40px rgba(0, 255, 255, 0.7), 0 0 60px rgba(255, 0, 255, 0.7);
-            backdrop-filter: blur(15px); /* Blur effect */
+            backdrop-filter: blur(15px); /* Gaussian blur effect */
             position: relative;
             z-index: 1;
+            margin: 20px; /* Margin to prevent touching edges */
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+            align-items: center; /* Center children horizontally */
         }
 
         /* Headings with minimal glow */
@@ -82,13 +86,16 @@
             border: 1px dashed #ff00ff;
             padding: 10px;
             margin: 10px 0;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(20, 20, 35, 0.5); /* 50% transparent background */
             color: #ff00ff;
+            border-radius: 10px; /* Rounded corners */
+            backdrop-filter: blur(10px); /* Gaussian blur effect */
+            width: 100%; /* Make editable sections full width */
         }
 
         /* Header/footer styles */
         header, footer {
-            background: rgba(30, 30, 30, 0.9);
+            background: rgba(30, 30, 30, 0.5); /* 50% transparent background */
             color: white;
             padding: 15px;
             border-radius: 10px;
@@ -96,6 +103,8 @@
             font-size: 1.5em;
             letter-spacing: 2px;
             text-transform: uppercase;
+            backdrop-filter: blur(10px); /* Gaussian blur effect */
+            width: 100%; /* Make header/footer full width */
         }
 
         /* Responsive design for mobile */
@@ -112,19 +121,19 @@
     <div class="star" style="top: 25%; left: 60%;"></div>
     <div class="star" style="top: 50%; left: 80%;"></div>
 
-    <header>About Me</header>
-
     <div class="container">
+        <header>About Me</header>
+
         <h1>Hello, I'm Fluffy the Dragon!</h1>
 
         <section class="editable">
             <h2>About Me</h2>
-            <p>Just a fluffy dragon flying above the clouds, enjoying life as it comes. It's like they say, don't give up because it's hard. Push through because it's happening. I am also a shy dragon when it comes to chatting and need a nudge, as I'm shy in conversations. Also, I'm grammatically challenged, as is evident from this page (sorry).</p>
+            <p>Just a fluffy dragon flying above the clouds, enjoying life as it comes. It's like they say, don't give up because it's hard. Push through because it's happening. I am also a shy dragon when it comes to chatting and need a nudge, as I'm shy in conversations. Also, I'm grammatically challenged.</p>
         </section>
 
         <section class="editable">
             <h2>My Interests</h2>
-            <p>I enjoy coding in Python and also batch files. I use ChatGPT because I can't code myself. I also like cheating in Minecraft, but not for bad reasons. If you don't want me to cheating, just ask! I also enjoy other things in real life, such as swimming and music.</p>
+            <p>I enjoy coding in Python and also batch files. I use ChatGPT because I can't code myself. I also like cheat in Minecraft, but not for bad reasons. If you don't want me to cheat, just ask! I also enjoy other things in real life, such as swimming and music.</p>
         </section>
 
         <section class="editable">
@@ -132,10 +141,9 @@
             <p>Check out my <a href="https://discord.com/invite/swnSq4xCHq" target="_blank">Discord server</a> called Dragon Paws!</p>
             <p>Feel free to <a href="mailto:destroyercomqq6@gmail.com">email me</a> for any questions. Also, please don't spam my inbox; I don't want to deal with that.</p>
         </section>
-    </div>
 
-    <footer>Thanks for visiting!</footer>
+        <footer>Thanks for visiting!</footer>
+    </div>
 </body>
 
 </html>
-
