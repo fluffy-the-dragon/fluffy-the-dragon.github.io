@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me - Fluffy the Dragon</title>
+    <title>About Me - Fluffy the Hacker Dragon</title>
     <style>
-        /* Overall body with space and gradient background */
+        /* Space and techno body style */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
-            background: linear-gradient(120deg, #884ac3, #ac5b95);
-            color: #f5f5f5;
+            font-family: 'Courier New', Courier, monospace;
+            background: radial-gradient(circle, #0d0d0d, #1a1a1a, #000000);
+            color: #00ffcc;
             margin: 0;
             padding: 0;
             display: flex;
@@ -21,129 +21,191 @@
             position: relative;
         }
 
-        /* Basic star effect for ambiance */
+        /* Animated background stars */
         .star {
             position: absolute;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
-            width: 4px;
-            height: 4px;
-            animation: starTwinkle 2s infinite alternate;
+            width: 2px;
+            height: 2px;
+            animation: starBlink 3s infinite alternate;
         }
 
-        @keyframes starTwinkle {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
+        @keyframes starBlink {
+            0% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
-        /* Glowing container with blur */
+        /* Glowing container with techno style */
         .container {
-            max-width: 800px; /* Container width */
-            background: rgba(20, 20, 35, 0.5); /* 50% transparent background */
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.7), 0 0 60px rgba(255, 0, 255, 0.7);
-            backdrop-filter: blur(15px); /* Gaussian blur effect */
-            position: relative;
-            z-index: 1;
-            margin: 20px; /* Margin to prevent touching edges */
+            max-width: 900px;
+            background: rgba(10, 10, 30, 0.8);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.7), 0 0 80px rgba(255, 0, 255, 0.7);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        /* Navigation bar */
+        nav {
+            margin-bottom: 20px;
             display: flex;
-            flex-direction: column; /* Stack children vertically */
-            align-items: center; /* Center children horizontally */
+            justify-content: center;
+            gap: 30px;
         }
 
-        /* Headings with minimal glow */
-        h1, h2 {
-            color: #fff;
+        nav a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: 1px solid #00ffcc;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #00ffcc;
+            color: #000;
+            box-shadow: 0 0 15px #00ffcc;
+        }
+
+        /* Header and Footer styling */
+        header, footer {
+            font-size: 1.5em;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+            color: #00ffcc;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #00ffcc;
         }
 
-        /* Paragraphs for readability */
+        /* Heading glow */
+        h1, h2 {
+            color: #00ffff;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 1);
+        }
+
+        /* Paragraphs */
         p {
             font-size: 1.2em;
-            line-height: 1.6;
+            line-height: 1.8;
+            color: #b3fff5;
         }
 
-        /* Link styles */
+        /* Links */
         a {
-            color: #00ffff;
+            color: #ff66cc;
             text-decoration: none;
-            position: relative;
             font-weight: bold;
             transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         a:hover {
-            color: #ff00ff;
-            text-shadow: 0 0 20px rgba(255, 0, 255, 1);
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
         }
 
-        /* Placeholder text styles */
-        .editable {
-            border: 1px dashed #ff00ff;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: rgba(20, 20, 35, 0.5); /* 50% transparent background */
-            color: #ff00ff;
-            border-radius: 10px; /* Rounded corners */
-            backdrop-filter: blur(10px); /* Gaussian blur effect */
-            width: 100%; /* Make editable sections full width */
-        }
-
-        /* Header/footer styles */
-        header, footer {
-            background: rgba(30, 30, 30, 0.5); /* 50% transparent background */
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.5em;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            backdrop-filter: blur(10px); /* Gaussian blur effect */
-            width: 100%; /* Make header/footer full width */
-        }
-
-        /* Responsive design for mobile */
+        /* Responsive design */
         @media (max-width: 768px) {
-            .container { padding: 20px; }
+            nav a {
+                font-size: 1em;
+                padding: 6px 12px;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            .container {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Basic star particle effects -->
-    <div class="star" style="top: 10%; left: 20%;"></div>
+    <!-- Animated stars for space effect -->
+    <div class="star" style="top: 10%; left: 15%;"></div>
     <div class="star" style="top: 25%; left: 60%;"></div>
     <div class="star" style="top: 50%; left: 80%;"></div>
+    <div class="star" style="top: 75%; left: 20%;"></div>
+    <div class="star" style="top: 90%; left: 50%;"></div>
 
     <div class="container">
-        <header>About Me</header>
+        <!-- Navigation Links -->
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html">Contact</a>
+        </nav>
 
-        <h1>Hello, I'm Fluffy the Dragon!</h1>
+        <!-- Main Header -->
+        <header>Fluffy the Hacker Dragon</header>
 
-        <section class="editable">
-            <h2>About Me</h2>
-            <p>Just a fluffy dragon flying above the clouds, enjoying life as it comes. It's like they say, don't give up because it's hard. Push through because it's happening. I am also a shy dragon when it comes to chatting and need a nudge, as I'm shy in conversations. Also, I'm grammatically challenged.</p>
+        <!-- About Me Section -->
+        <section>
+            <h1>About Me</h1>
+            <p>
+                I am Fluffy the Dragon, a cyber-security expert and a friendly hacker who thrives in protecting the digital world from threats.  
+                I live by the motto: **"Hack to protect, not to harm."** My adventures revolve around coding, debugging, and ethical hacking, ensuring systems are secure while adding a touch of creativity to every challenge. 🐉
+            </p>
+            <p>
+                Outside the cyber realm, I enjoy flying high in my imagination and sharing knowledge with like-minded dragons and humans alike. I believe in making the digital universe safer and more magical for everyone.
+            </p>
         </section>
 
-        <section class="editable">
+        <!-- Personality Section -->
+        <section>
+            <h2>Who Am I?</h2>
+            <p>
+                I am a **curious, quirky, and creative** dragon who loves:
+                <ul style="text-align: left;">
+                    <li>Exploring and learning new tech trends.</li>
+                    <li>Helping others understand cybersecurity and ethical hacking.</li>
+                    <li>Working on futuristic, out-of-the-box projects.</li>
+                </ul>
+                While I take my hacker dragon role seriously, I'm also known for being approachable, playful, and always ready to share a fun story or two.
+            </p>
+        </section>
+
+        <!-- My Interests Section -->
+        <section>
             <h2>My Interests</h2>
-            <p>I enjoy coding in Python and also batch files. I use ChatGPT because I can't code myself. I also like cheat in Minecraft, but not for bad reasons. If you don't want me to cheat, just ask! I also enjoy other things in real life, such as swimming and music.</p>
+            <p>
+                I love diving deep into:
+                <ul style="text-align: left;">
+                    <li>Cybersecurity, including penetration testing and ethical hacking.</li>
+                    <li>Coding in Python, Bash scripting, and system optimization.</li>
+                    <li>Exploring Linux systems and experimenting with tools like Kali Linux.</li>
+                </ul>
+                Beyond tech, I enjoy:
+                <ul style="text-align: left;">
+                    <li>Listening to techno beats that inspire my hacker vibe.</li>
+                    <li>Gaming (Minecraft with mods and cheats—ethically, of course!).</li>
+                    <li>Swimming and daydreaming about soaring through the clouds.</li>
+                </ul>
+            </p>
         </section>
 
-        <section class="editable">
-            <h2>Find Me On</h2>
-            <p>Check out my <a href="https://discord.com/invite/swnSq4xCHq" target="_blank">Discord server</a> called Dragon Paws!</p>
-            <p>Feel free to <a href="mailto:removed due to furfall threat">email me</a> for any questions. Also, please don't spam my inbox; I don't want to deal with that.</p>
+        <!-- Find Me Online -->
+        <section>
+            <h2>Find Me Online</h2>
+            <p>
+                Want to connect? Join my realm on <a href="https://discord.com/invite/swnSq4xCHq" target="_blank">Dragon Paws Discord Server</a>, its a safe haven for all dragons like me!
+            </p>
         </section>
 
-        <footer>Thanks for visiting!</footer>
+        <!-- Footer -->
+        <footer>Fly high, hack safe!</footer>
     </div>
+
 </body>
 
 </html>

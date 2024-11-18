@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Fluffy the Hacker Dragon</title>
+    <style>
+        /* Space-techno body styling */
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: radial-gradient(circle, #0d0d0d, #1a1a1a, #000000);
+            color: #00ffcc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated stars for ambiance */
+        .star {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 2px;
+            height: 2px;
+            animation: starTwinkle 3s infinite alternate;
+        }
+
+        @keyframes starTwinkle {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Container styling */
+        .container {
+            max-width: 800px;
+            background: rgba(10, 10, 30, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.7), 0 0 80px rgba(255, 0, 255, 0.7);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        /* Navigation bar */
+        nav {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: 1px solid #00ffcc;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #00ffcc;
+            color: #000;
+            box-shadow: 0 0 15px #00ffcc;
+        }
+
+        /* Header and footer */
+        header, footer {
+            font-size: 1.5em;
+            text-transform: uppercase;
+            color: #00ffcc;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+
+        /* Headings with glow effect */
+        h1, h2 {
+            color: #00ffff;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 1);
+        }
+
+        /* Paragraph styling */
+        p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #b3fff5;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            nav a {
+                font-size: 1em;
+                padding: 6px 12px;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated stars -->
+    <div class="star" style="top: 10%; left: 20%;"></div>
+    <div class="star" style="top: 25%; left: 60%;"></div>
+    <div class="star" style="top: 50%; left: 80%;"></div>
+    <div class="star" style="top: 75%; left: 30%;"></div>
+
+    <div class="container">
+        <!-- Navigation Links -->
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Me</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Page Header -->
+        <header>My Projects</header>
+
+        <!-- Main Content -->
+        <section>
+            <h1>Current Project: Red Ice</h1>
+            <p>
+                I'm currently working on an analysis tool called <strong>Red Ice</strong>. This tool is designed to analyze and debug executable files (EXE) and dynamic link libraries (DLL) for cybersecurity and reverse engineering purposes.
+            </p>
+        </section>
+
+        <section>
+            <h2>What is Red Ice?</h2>
+            <p>
+                Red Ice is a specialized tool that enables users to:
+                <ul style="text-align: left; margin: 0 auto; display: inline-block;">
+                    <li>Analyze EXE files for vulnerabilities or malicious behavior.</li>
+                    <li>Dissect DLL files to understand their internal structure and functionality.</li>
+                    <li>Identify suspicious or potentially harmful code in both file types.</li>
+                    <li>Provide detailed reports for reverse engineering and forensic analysis.</li>
+                </ul>
+            </p>
+        </section>
+
+        <section>
+            <h2>Why "Red Ice"?</h2>
+            <p>
+                The name "Red Ice" symbolizes:
+                <ul style="text-align: left; margin: 0 auto; display: inline-block;">
+                    <li><strong>Red</strong>, representing the critical detection of malicious or vulnerable code.</li>
+                    <li><strong>Ice</strong>, symbolizing clarity and precision in analysis, akin to a frozen lens bringing focus to unseen threats.</li>
+                </ul>
+            </p>
+        </section>
+
+        <section>
+            <h2>Project Status</h2>
+            <p>
+                Red Ice is in the **early development phase**, focusing on:
+                <ul style="text-align: left; margin: 0 auto; display: inline-block;">
+                    <li>Building the core analysis engine for parsing EXE and DLL files.</li>
+                    <li>Implementing pattern-matching techniques to detect malicious behavior.</li>
+                    <li>Creating a user-friendly interface, offering both GUI and CLI options.</li>
+                    <li>Ensuring compatibility with major platforms like Windows and Linux.</li>
+                </ul>
+            </p>
+            <p>
+                I aim to make Red Ice a must-have tool for ethical hackers, cybersecurity experts, and reverse engineers. Progress updates will be shared on my <a href="https://discord.gg/67yqaqGJHH" target="_blank">red ice center</a>.
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <footer>Fly high, hack safe!</footer>
+    </div>
+
+</body>
+
+</html>
