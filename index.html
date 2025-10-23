@@ -10,6 +10,8 @@
     --bg:#060608;
     --panel:#0b0c0f;
     --accent:#39ff14; /* hacker green */
+    --accent2: #00ffff; /* NEW: cyan */
+    --warn: #ffb800;  /* NEW: amber */
     --muted:#6b737b;
     --glass: rgba(255,255,255,0.03);
   }
@@ -20,11 +22,11 @@
   /* Center container */
   .wrap {height:100%;display:flex;align-items:center;justify-content:center;padding:28px;box-sizing:border-box;}
   
-  /* --- NEW: Terminal Flicker Effect --- */
-  @keyframes term-flicker {
-    0% { opacity: 0.97; }
-    50% { opacity: 1; }
-    100% { opacity: 0.97; }
+  /* --- NEW: Terminal Pulse Effect --- */
+  @keyframes term-pulse {
+    0% { box-shadow: 0 0 12px rgba(57,255,20,0.1), 0 12px 40px rgba(2,6,8,0.8); }
+    50% { box-shadow: 0 0 20px rgba(57,255,20,0.25), 0 12px 40px rgba(2,6,8,0.8); }
+    100% { box-shadow: 0 0 12px rgba(57,255,20,0.1), 0 12px 40px rgba(2,6,8,0.8); }
   }
   
   /* Terminal window */
@@ -34,12 +36,12 @@
     height:min(640px,86vh);
     background:linear-gradient(180deg,var(--panel), #070708 120%);
     border-radius:10px;
-    box-shadow: 0 12px 40px rgba(2,6,8,0.8), inset 0 1px 0 rgba(255,255,255,0.02);
+    /* Removed static shadow, replaced with pulse */
     overflow:hidden;
     display:flex;
     flex-direction:column;
     border: 1px solid rgba(57,255,20,0.06);
-    animation: term-flicker 0.1s linear infinite; /* Apply flicker */
+    animation: term-pulse 4s linear infinite; /* Apply pulse */
   }
 
   /* Window chrome */
@@ -64,7 +66,7 @@
     box-sizing:border-box;
   }
 
-  /* --- NEW: Scanline Effect --- */
+  /* --- Scanline Effect --- */
   @keyframes scanline-flicker {
     0% { background-position: 0 0; }
     100% { background-position: 0 4px; }
@@ -78,22 +80,40 @@
     overflow:auto;
     box-sizing:border-box;
     border:1px solid rgba(57,255,20,0.02);
-    
     position: relative; /* Needed for pseudo-element */
-    /* --- NEW: CRT Vignette Effect --- */
-    box-shadow: inset 0 0 40px rgba(0,0,0,0.4);
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.4); /* CRT Vignette */
   }
   
-  /* --- NEW: Scanline Overlay --- */
+  /* Scanline Overlay */
   .screen::after {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background: linear-gradient(to bottom, rgba(18, 16, 16, 0.1) 50%, transparent 50%);
     background-size: 100% 4px; /* 4px tall lines */
-    opacity: 0.2;
+    opacity: 0.3; /* --- Made slightly stronger --- */
     pointer-events: none;
-    animation: scanline-flicker 0.12s linear infinite;
+    animation: scanline-flicker 0.1s linear infinite;
+  }
+
+  /* --- NEW: Text Glitch Effect --- */
+  @keyframes text-glitch {
+    0% { transform: skewX(0); }
+    49% { transform: skewX(0); }
+    50% { transform: skewX(-1deg); }
+    51% { transform: skewX(1deg); }
+    52% { transform: skewX(0); }
+    100% { transform: skewX(0); }
+  }
+
+  /* --- NEW: Glowing Flash Effect --- */
+  @keyframes glowing-flash {
+    0% { color: var(--accent); text-shadow: 0 0 4px var(--accent); }
+    50% { color: #fff; text-shadow: 0 0 20px #fff; }
+    100% { color: var(--accent); text-shadow: 0 0 4px var(--accent); }
+  }
+  .flash {
+    animation: glowing-flash 0.4s steps(2, start) infinite;
   }
 
   /* text lines */
@@ -102,20 +122,23 @@
     font-size:15px;
     line-height:1.45;
     color:var(--accent);
-    /* --- NEW: Text Glow Effect --- */
-    text-shadow: 0 0 4px rgba(57,255,20,0.7), 0 0 8px rgba(57,255,20,0.3);
+    text-shadow: 0 0 6px rgba(57,255,20,0.7), 0 0 10px rgba(57,255,20,0.3); /* --- Enhanced glow --- */
+    animation: text-glitch 0.2s linear infinite; /* --- Apply glitch --- */
   }
   .muted{
     color:var(--muted);
     font-size:13px;
-    text-shadow: none; /* --- NEW: Remove glow from muted text --- */
+    text-shadow: none;
+    animation: none; /* --- No glitch for muted text --- */
   }
   .error{color:#ff6b6b}
   .success{color:#7bed9f}
+  .cyan { color: var(--accent2); text-shadow: 0 0 5px var(--accent2); } /* --- NEW --- */
+  .warn { color: var(--warn); text-shadow: 0 0 5px var(--warn); }     /* --- NEW --- */
 
   /* input */
   .input-wrap {display:flex;align-items:center;gap:8px;margin-top:10px;}
-  .prompt{min-width:150px;color:var(--muted);font-size:14px; text-shadow: none;}
+  .prompt{min-width:150px;color:var(--muted);font-size:14px; text-shadow: none; animation: none;}
   .cmdline {
     flex:1;
     background:transparent;
@@ -125,8 +148,8 @@
     font:inherit;
     font-size:15px;
     caret-color:var(--accent);
-    /* --- NEW: Add glow to input text --- */
-    text-shadow: 0 0 4px rgba(57,255,20,0.7), 0 0 8px rgba(57,255,20,0.3);
+    text-shadow: 0 0 6px rgba(57,255,20,0.7);
+    animation: text-glitch 0.2s linear infinite;
   }
   /* Hide fake cursor when input is focused */
   .cmdline:focus + .fake-cursor {
@@ -135,14 +158,13 @@
 
   /* fake cursor */
   .fake-cursor{display:inline-block;width:9px;height:18px;background:var(--accent);vertical-align:middle;margin-left:2px;opacity:0.9;animation:blink 1s steps(2,start) infinite;
-    /* --- NEW: Add glow to cursor --- */
     box-shadow: 0 0 6px rgba(57,255,20,0.8);
   }
   @keyframes blink{50%{opacity:0}}
 
   /* hint bar */
   .hint {
-    margin-top:10px;padding:9px;border-radius:6px;background:rgba(255,255,255,0.01);color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px;
+    margin-top:10px;padding:9px;border-radius:6px;background:rgba(255,255,255,0.01);color:var(--muted);font-size:13px;display:flex;justify:content:space-between;align:center;gap:12px;
   }
   
   /* Reset button styles for .pill */
@@ -163,8 +185,8 @@
     color:var(--accent);
     font-size:13px;
     transition: background-color 150ms ease;
-    /* --- NEW: Add glow to button text --- */
     text-shadow: 0 0 4px rgba(57,255,20,0.7);
+    animation: text-glitch 0.2s linear infinite;
   }
   /* Add hover/focus for accessibility */
   .pill:hover,
@@ -179,7 +201,7 @@
 
   /* progress */
   .progress {width:100%;height:10px;border-radius:6px;background:rgba(255,255,255,0.02);overflow:hidden;margin-top:8px}
-  .progress > i{display:block;height:100%;width:0%;background:linear-gradient(90deg, rgba(57,255,20,0.16), rgba(57,255,20,0.35));transition:width 200ms linear}
+  .progress > i{display:block;height:100%;width:0%;background:linear-gradient(90deg, rgba(57,255,20,0.16), rgba(57,255,20,0.35));transition:width 400ms linear} /* --- Slower transition --- */
 
   /* spinner */
   .spinner{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 800ms linear infinite;display:inline-block;vertical-align:middle;margin-right:8px}
@@ -254,8 +276,8 @@ function appendLine(text='', cls='line') {
 // small utility to sleep
 const sleep = ms => new Promise(r=>setTimeout(r, ms));
 
-// typewriter effect for a line; refactored to be async
-async function typeLine(node, text, speed=10) { // --- Made typing faster ---
+// typewriter effect for a line
+async function typeLine(node, text, speed=10) {
   node.textContent = '';
   for (const char of text) {
     node.textContent += char;
@@ -264,20 +286,34 @@ async function typeLine(node, text, speed=10) { // --- Made typing faster ---
   }
 }
 
-// --- NEW: ~60 second "techy" boot sequence ---
-const systemCheckLogs = [
-  "Checking local storage...",
-  "Querying DNS for main.html...",
-  "Pinging host [2a04:4e42:400::321]...",
-  "Host OK (12ms).",
-  "Verifying security certificates...",
-  "Certificate CN=*.github.io, SAN=github.io",
-  "Issuer: DigiCert",
-  "Status: VALID (exp. 2026-10-28)",
-  "Calibrating quantum entanglement buffer...",
-  "Compiling JIT scripts [x86_64]...",
-  "Warming up local cache (0.42mb)...",
-  "All system checks passed."
+// --- NEW: ~120 second (2 minute) "techy" boot sequence ---
+
+const kernelLogs = [
+  "Booting kernel v6.8.2-arch1-1...",
+  "Loading initial ramdisk...",
+  "Probing hardware: [CPU, APIC, IO-APIC, MTRR, ACPI]",
+  "Initializing memory manager [8.2GiB total]...",
+  "Detected CPU: 12th Gen Intel(R) Core(TM) i7-12700H",
+  "Mounting virtual filesystems [/dev, /proc, /sys]...",
+  "Loading drivers [input, usb, net, block]...",
+  "[OK] input: HID driver loaded.",
+  "[OK] usb: xhci_hcd driver loaded.",
+  "[OK] net: e1000e driver loaded.",
+  "Kernel boot complete."
+];
+
+const networkLogs = [
+  "Initializing network subsystem...",
+  "INFO: Interface eth0 detected.", "line cyan",
+  "Querying DHCP server...",
+  "INFO: Lease obtained: 192.168.1.102", "line cyan",
+  "Pinging default gateway [192.168.1.1]... [OK]",
+  "Initializing DNS resolver [8.8.8.8, 1.1.1.1]...",
+  "WARN: High-latency detected on resolver 8.8.8.8 (120ms).", "line warn",
+  "INFO: Switching to secondary resolver 1.1.1.1 (18ms).", "line cyan",
+  "Network subsystem OK.",
+  "Querying host 'github.io'...",
+  "INFO: Host resolved to 2a04:4e42:400::321", "line cyan"
 ];
 
 const patchLogs = [
@@ -286,6 +322,7 @@ const patchLogs = [
   "Applying patch [KB-99b1e0]...",
   "[OK] User session token generated.",
   "Applying patch [CORE-03c4f]...",
+  "WARN: Deprecated call in CORE-03c4f. Applying hotfix...", "line warn",
   "[OK] Runtime environment sealed.",
   "Verifying integrity checksums [SHA-256]...",
   "Checksum: a45...7b1 (OK)",
@@ -293,28 +330,45 @@ const patchLogs = [
 ];
 
 async function executeGoToMain(invokedCommand) {
-  // This function assumes `locked = true` and `cmdInput.disabled = true`
-  // have been set by the caller.
   const invoked = invokedCommand || 'go-to-main';
   appendLine(`user@site:~$ ${invoked}`, 'line');
   
-  // --- STAGE 1: Initializing (~2 seconds) ---
+  // --- STAGE 1: Initializing (~10 seconds) ---
   const spinnerLine = appendLine('', 'line muted');
   spinnerLine.innerHTML = '<span class="spinner" aria-hidden="true"></span> establishing secure channel...';
-  await sleep(2000 + Math.random()*500);
+  await sleep(2000);
+  spinnerLine.innerHTML = '<span class="spinner" aria-hidden="true"></span> authenticating user...';
+  await sleep(3000);
+  spinnerLine.innerHTML = '<span class="spinner" aria-hidden="true"></span> compiling JIT scripts...';
+  await sleep(4000);
 
-  // --- STAGE 2: System Checks (~15 seconds) ---
-  spinnerLine.innerHTML = '<span class="spinner" aria-hidden="true"></span> running system checks...';
-  await sleep(1000); // short pause
-  
-  for (const log of systemCheckLogs) {
+  // --- STAGE 2: Kernel & Driver Load (~30 seconds) ---
+  spinnerLine.innerHTML = '<span class="spinner" aria-hidden="true"></span> loading kernel...';
+  await sleep(1000);
+  for (const log of kernelLogs) {
     const n = appendLine('', 'line');
     await typeLine(n, log);
-    await sleep(500 + Math.random() * 800); // pause between lines
+    await sleep(700 + Math.random() * 800);
   }
-  
-  // --- STAGE 3: Loading Resources (~25 seconds) ---
-  spinnerLine.remove(); // remove "system checks" spinner
+
+  // --- STAGE 3: Network Subsystem (~30 seconds) ---
+  spinnerLine.innerHTML = '<span class="spinner" aria-hidden="true"></span> initializing network subsystem...';
+  await sleep(1000);
+  for (let i = 0; i < networkLogs.length; i++) {
+    const log = networkLogs[i];
+    // Check if the next item is a class name
+    let cls = 'line';
+    if (i + 1 < networkLogs.length && networkLogs[i+1].startsWith('line ')) {
+      cls = networkLogs[i+1];
+      i++; // Skip the class name in the next iteration
+    }
+    const n = appendLine('', cls);
+    await typeLine(n, log);
+    await sleep(700 + Math.random() * 800);
+  }
+
+  // --- STAGE 4: Loading Resources (~30 seconds) ---
+  spinnerLine.remove(); // remove "network" spinner
   const progressLine = document.createElement('div');
   progressLine.className = 'line';
   progressLine.innerHTML = '<div class="muted">loading resources...</div><div class="progress" aria-hidden="true"><i></i></div>';
@@ -324,31 +378,45 @@ async function executeGoToMain(invokedCommand) {
 
   let pct = 0;
   while(pct < 100){
-    const step = Math.floor(2 + Math.random()*5); // smaller steps
+    const step = Math.floor(2 + Math.random()*4); // smaller steps
     pct = Math.min(100, pct + step);
     bar.style.width = pct + '%';
-    await sleep(600 + Math.random()*300); // longer pause
+    await sleep(700 + Math.random()*300); // longer pause
   }
-  
-  // --- STAGE 4: Applying Patches (~15 seconds) ---
+
+  // --- STAGE 5: Applying Patches (~15 seconds) ---
   progressLine.remove();
   const patchSpinner = appendLine('', 'line muted');
   patchSpinner.innerHTML = '<span class="spinner" aria-hidden="true"></span> applying runtime patches...';
   await sleep(1000);
   
-  for (const log of patchLogs) {
-    const n = appendLine('', 'line');
+  for (let i = 0; i < patchLogs.length; i++) {
+    const log = patchLogs[i];
+    let cls = 'line';
+    if (i + 1 < patchLogs.length && patchLogs[i+1].startsWith('line ')) {
+      cls = patchLogs[i+1];
+      i++;
+    }
+    const n = appendLine('', cls);
     await typeLine(n, log);
-    await sleep(700 + Math.random() * 800); // pause between lines
+    await sleep(700 + Math.random() * 800);
   }
   
-  // --- STAGE 5: Finalizing (~3 seconds) ---
+  // --- STAGE 6: Final "Flash" & Redirect (~5 seconds) ---
   patchSpinner.remove();
   appendLine('', 'line'); // blank
+  
+  // --- DRAMATIC FLASH ---
+  const breach = appendLine('!!! SECURITY BREACH DETECTED !!!', 'line error flash');
+  await sleep(1500);
+  breach.textContent = '...false positive. re-routing...';
+  breach.classList.remove('flash', 'error');
+  breach.classList.add('warn');
+  await sleep(1000);
+  
   const okLine = appendLine('', 'line muted');
-  await typeLine(okLine, 'handshake complete. redirecting to main.html — please wait', 12);
+  await typeLine(okLine, 'handshake complete. redirecting to main.html', 12);
 
-  // small finish delay for polish
   await sleep(1500);
   // actually redirect
   window.location.href = 'main.html';
@@ -358,15 +426,15 @@ async function executeGoToMain(invokedCommand) {
 cmdInput.addEventListener('keydown', async (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
-    if (locked) return; // Don't do anything if already locked
+    if (locked) return;
     
     const raw = (cmdInput.value || '').trim();
     lastCommand = raw;
-    cmdInput.value = ''; // Clear input field immediately
-    locked = true; // Lock input
+    cmdInput.value = '';
+    locked = true;
 
     if (raw.toLowerCase() === 'go-to-main') {
-      cmdInput.disabled = true; // Disable input for 'go-to-main' path
+      cmdInput.disabled = true;
       await executeGoToMain(raw);
       // No unlock needed, page will redirect
     } else {
@@ -376,41 +444,36 @@ cmdInput.addEventListener('keydown', async (e) => {
       await typeLine(nf, `Command not found: ${raw}`, 12);
       appendLine("Hint: only 'go-to-main' is recognized.", 'line muted');
       
-      locked = false; // Unlock after error message
-      cmdInput.focus(); // Re-focus
+      locked = false;
+      cmdInput.focus();
     }
   } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-    if (locked) { e.preventDefault(); return; } // Prevent history while locked
-    // simple recall last command
+    if (locked) { e.preventDefault(); return; }
     e.preventDefault();
     if (e.key === 'ArrowUp' && lastCommand) cmdInput.value = lastCommand;
     if (e.key === 'ArrowDown') cmdInput.value = '';
   } else if (locked) {
-    // Prevent any other key presses while locked
     e.preventDefault();
   }
 });
 
-// clickable run button for convenience
+// clickable run button
 runBtn.addEventListener('click', async () => {
   if (locked) return;
   cmdInput.value = 'go-to-main';
   cmdInput.focus();
-  // small delay to mimic manual enter
   await sleep(80);
   const ev = new KeyboardEvent('keydown', {'key':'Enter'});
   cmdInput.dispatchEvent(ev);
 });
 
-// tiny auto-effect: when page loads, type the initial prompt into input quickly (cosmetic)
+// auto-type "go-to-main" on load
 window.addEventListener('load', async () => {
-  // simulate typing into the cmd input the command suggestion
   const demo = 'go-to-main';
   for(let i=0;i<demo.length;i++){
     cmdInput.value += demo[i];
     await sleep(24);
   }
-  // leave it—user can press Enter or edit it
 });
 </script>
 </body>
