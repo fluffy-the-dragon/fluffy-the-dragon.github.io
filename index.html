@@ -19,6 +19,14 @@
     var(--bg); color:var(--accent); -webkit-font-smoothing:antialiased;}
   /* Center container */
   .wrap {height:100%;display:flex;align-items:center;justify-content:center;padding:28px;box-sizing:border-box;}
+  
+  /* --- NEW: Terminal Flicker Effect --- */
+  @keyframes term-flicker {
+    0% { opacity: 0.97; }
+    50% { opacity: 1; }
+    100% { opacity: 0.97; }
+  }
+  
   /* Terminal window */
   .term {
     width:min(980px,96vw);
@@ -31,6 +39,7 @@
     display:flex;
     flex-direction:column;
     border: 1px solid rgba(57,255,20,0.06);
+    animation: term-flicker 0.1s linear infinite; /* Apply flicker */
   }
 
   /* Window chrome */
@@ -54,6 +63,13 @@
     height:100%;
     box-sizing:border-box;
   }
+
+  /* --- NEW: Scanline Effect --- */
+  @keyframes scanline-flicker {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 4px; }
+  }
+  
   .screen {
     background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
     border-radius:6px;
@@ -62,17 +78,44 @@
     overflow:auto;
     box-sizing:border-box;
     border:1px solid rgba(57,255,20,0.02);
+    
+    position: relative; /* Needed for pseudo-element */
+    /* --- NEW: CRT Vignette Effect --- */
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.4);
+  }
+  
+  /* --- NEW: Scanline Overlay --- */
+  .screen::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(18, 16, 16, 0.1) 50%, transparent 50%);
+    background-size: 100% 4px; /* 4px tall lines */
+    opacity: 0.2;
+    pointer-events: none;
+    animation: scanline-flicker 0.12s linear infinite;
   }
 
   /* text lines */
-  .line {white-space:pre-wrap;font-size:15px;line-height:1.45;color:var(--accent);text-shadow:0 1px 0 rgba(0,0,0,0.6);}
-  .muted{color:var(--muted);font-size:13px}
+  .line {
+    white-space:pre-wrap;
+    font-size:15px;
+    line-height:1.45;
+    color:var(--accent);
+    /* --- NEW: Text Glow Effect --- */
+    text-shadow: 0 0 4px rgba(57,255,20,0.7), 0 0 8px rgba(57,255,20,0.3);
+  }
+  .muted{
+    color:var(--muted);
+    font-size:13px;
+    text-shadow: none; /* --- NEW: Remove glow from muted text --- */
+  }
   .error{color:#ff6b6b}
   .success{color:#7bed9f}
 
   /* input */
   .input-wrap {display:flex;align-items:center;gap:8px;margin-top:10px;}
-  .prompt{min-width:150px;color:var(--muted);font-size:14px}
+  .prompt{min-width:150px;color:var(--muted);font-size:14px; text-shadow: none;}
   .cmdline {
     flex:1;
     background:transparent;
@@ -82,17 +125,57 @@
     font:inherit;
     font-size:15px;
     caret-color:var(--accent);
+    /* --- NEW: Add glow to input text --- */
+    text-shadow: 0 0 4px rgba(57,255,20,0.7), 0 0 8px rgba(57,255,20,0.3);
+  }
+  /* Hide fake cursor when input is focused */
+  .cmdline:focus + .fake-cursor {
+    display: none;
   }
 
   /* fake cursor */
-  .fake-cursor{display:inline-block;width:9px;height:18px;background:var(--accent);vertical-align:middle;margin-left:2px;opacity:0.9;animation:blink 1s steps(2,start) infinite}
+  .fake-cursor{display:inline-block;width:9px;height:18px;background:var(--accent);vertical-align:middle;margin-left:2px;opacity:0.9;animation:blink 1s steps(2,start) infinite;
+    /* --- NEW: Add glow to cursor --- */
+    box-shadow: 0 0 6px rgba(57,255,20,0.8);
+  }
   @keyframes blink{50%{opacity:0}}
 
   /* hint bar */
   .hint {
     margin-top:10px;padding:9px;border-radius:6px;background:rgba(255,255,255,0.01);color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px;
   }
-  .hint .pill {padding:6px 10px;border-radius:999px;background:rgba(57,255,20,0.04);border:1px solid rgba(57,255,20,0.03);cursor:pointer;color:var(--accent);font-size:13px}
+  
+  /* Reset button styles for .pill */
+  .hint button.pill {
+    font:inherit;
+    background:transparent;
+    border:none;
+    padding:0;
+    margin:0;
+    color:inherit;
+  }
+  .pill {
+    padding:6px 10px;
+    border-radius:999px;
+    background:rgba(57,255,20,0.04);
+    border:1px solid rgba(57,255,20,0.03);
+    cursor:pointer;
+    color:var(--accent);
+    font-size:13px;
+    transition: background-color 150ms ease;
+    /* --- NEW: Add glow to button text --- */
+    text-shadow: 0 0 4px rgba(57,255,20,0.7);
+  }
+  /* Add hover/focus for accessibility */
+  .pill:hover,
+  .pill:focus {
+    background:rgba(57,255,20,0.1);
+    outline: none;
+  }
+  .pill:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
 
   /* progress */
   .progress {width:100%;height:10px;border-radius:6px;background:rgba(255,255,255,0.02);overflow:hidden;margin-top:8px}
@@ -128,18 +211,18 @@
           <div class="line muted">Welcome to a simulated secure shell.</div>
           <div class="line muted">This interface responds only to <strong>go-to-main</strong>.</div>
           <div class="line muted">Type <strong>go-to-main</strong> and press Enter to continue.</div>
-          <br>
+          <div class="line" aria-hidden="true">&nbsp;</div>
         </div>
 
         <div class="input-wrap">
-          <div class="prompt">user@site:~$</div>
+          <label for="cmd" class="prompt">user@site:~$</label>
           <input id="cmd" class="cmdline" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off" aria-label="Terminal command input" />
-          <div class="fake-cursor" id="cursor"></div>
+          <div class="fake-cursor" id="cursor" aria-hidden="true"></div>
         </div>
 
         <div class="hint">
           <div class="muted">Only command: <strong>go-to-main</strong></div>
-          <div class="pill" id="runBtn">Run go-to-main ▶</div>
+          <button type="button" class="pill" id="runBtn">Run go-to-main ▶</button>
         </div>
       </div>
     </section>
@@ -168,109 +251,149 @@ function appendLine(text='', cls='line') {
   return d;
 }
 
-// typewriter effect for a line; returns a promise
-function typeLine(node, text, speed=18) {
-  return new Promise(resolve=>{
-    node.textContent = '';
-    let i = 0;
-    function step(){
-      node.textContent += text.charAt(i++);
-      screen.scrollTop = screen.scrollHeight;
-      if(i < text.length) setTimeout(step, speed + Math.random()*8);
-      else resolve();
-    }
-    step();
-  });
-}
-
 // small utility to sleep
 const sleep = ms => new Promise(r=>setTimeout(r, ms));
 
-// spinner + streaming logs + progress emulation
-async function executeGoToMain() {
-  locked = true;
-  cmdInput.disabled = true;
-  const invoked = lastCommand || 'go-to-main';
-  appendLine(`user@site:~$ ${invoked}`, 'line');
-  const spinnerLine = appendLine('', 'line muted');
-  // spinner icon
-  spinnerLine.innerHTML = '<span class="spinner" aria-hidden="true"></span> initializing...';
-  await sleep(700 + Math.random()*500);
-
-  // simulate a stream of system logs with typewriter
-  const logs = [
-    'establishing secure channel...',
-    'verifying integrity checksums...',
-    'allocating sandboxed runtime...',
-    'loading resources [████░░░░░░░░░░░] 28%',
-    'loading resources [███████░░░░░░░░] 56%',
-    'applying runtime patches...',
-    'handshaking with main process...',
-    'finalizing environment...'
-  ];
-  for(let i=0;i<logs.length;i++){
-    const n = appendLine('', 'line');
-    await typeLine(n, logs[i], 12 + Math.random()*10);
-    // add a small randomized pause
-    await sleep(120 + Math.random()*250);
+// typewriter effect for a line; refactored to be async
+async function typeLine(node, text, speed=10) { // --- Made typing faster ---
+  node.textContent = '';
+  for (const char of text) {
+    node.textContent += char;
+    screen.scrollTop = screen.scrollHeight;
+    await sleep(speed + Math.random() * 6);
   }
+}
 
-  // replace spinner line with progress bar
-  spinnerLine.remove();
+// --- NEW: ~60 second "techy" boot sequence ---
+const systemCheckLogs = [
+  "Checking local storage...",
+  "Querying DNS for main.html...",
+  "Pinging host [2a04:4e42:400::321]...",
+  "Host OK (12ms).",
+  "Verifying security certificates...",
+  "Certificate CN=*.github.io, SAN=github.io",
+  "Issuer: DigiCert",
+  "Status: VALID (exp. 2026-10-28)",
+  "Calibrating quantum entanglement buffer...",
+  "Compiling JIT scripts [x86_64]...",
+  "Warming up local cache (0.42mb)...",
+  "All system checks passed."
+];
+
+const patchLogs = [
+  "Applying patch [KB-45a821]...",
+  "[OK] Security context initialized.",
+  "Applying patch [KB-99b1e0]...",
+  "[OK] User session token generated.",
+  "Applying patch [CORE-03c4f]...",
+  "[OK] Runtime environment sealed.",
+  "Verifying integrity checksums [SHA-256]...",
+  "Checksum: a45...7b1 (OK)",
+  "Final check... all systems nominal."
+];
+
+async function executeGoToMain(invokedCommand) {
+  // This function assumes `locked = true` and `cmdInput.disabled = true`
+  // have been set by the caller.
+  const invoked = invokedCommand || 'go-to-main';
+  appendLine(`user@site:~$ ${invoked}`, 'line');
+  
+  // --- STAGE 1: Initializing (~2 seconds) ---
+  const spinnerLine = appendLine('', 'line muted');
+  spinnerLine.innerHTML = '<span class="spinner" aria-hidden="true"></span> establishing secure channel...';
+  await sleep(2000 + Math.random()*500);
+
+  // --- STAGE 2: System Checks (~15 seconds) ---
+  spinnerLine.innerHTML = '<span class="spinner" aria-hidden="true"></span> running system checks...';
+  await sleep(1000); // short pause
+  
+  for (const log of systemCheckLogs) {
+    const n = appendLine('', 'line');
+    await typeLine(n, log);
+    await sleep(500 + Math.random() * 800); // pause between lines
+  }
+  
+  // --- STAGE 3: Loading Resources (~25 seconds) ---
+  spinnerLine.remove(); // remove "system checks" spinner
   const progressLine = document.createElement('div');
   progressLine.className = 'line';
-  progressLine.innerHTML = '<div class="muted">progress</div><div class="progress" aria-hidden="true"><i></i></div>';
+  progressLine.innerHTML = '<div class="muted">loading resources...</div><div class="progress" aria-hidden="true"><i></i></div>';
   screen.appendChild(progressLine);
   screen.scrollTop = screen.scrollHeight;
   const bar = progressLine.querySelector('i');
 
-  // animate progress in uneven jumps to feel real
   let pct = 0;
   while(pct < 100){
-    const step = Math.floor(5 + Math.random()*18);
+    const step = Math.floor(2 + Math.random()*5); // smaller steps
     pct = Math.min(100, pct + step);
     bar.style.width = pct + '%';
-    await sleep(130 + Math.random()*220);
+    await sleep(600 + Math.random()*300); // longer pause
   }
-
+  
+  // --- STAGE 4: Applying Patches (~15 seconds) ---
+  progressLine.remove();
+  const patchSpinner = appendLine('', 'line muted');
+  patchSpinner.innerHTML = '<span class="spinner" aria-hidden="true"></span> applying runtime patches...';
+  await sleep(1000);
+  
+  for (const log of patchLogs) {
+    const n = appendLine('', 'line');
+    await typeLine(n, log);
+    await sleep(700 + Math.random() * 800); // pause between lines
+  }
+  
+  // --- STAGE 5: Finalizing (~3 seconds) ---
+  patchSpinner.remove();
   appendLine('', 'line'); // blank
   const okLine = appendLine('', 'line muted');
-  await typeLine(okLine, 'redirecting to main.html — please wait', 12);
+  await typeLine(okLine, 'handshake complete. redirecting to main.html — please wait', 12);
 
   // small finish delay for polish
-  await sleep(900);
+  await sleep(1500);
   // actually redirect
   window.location.href = 'main.html';
 }
 
 // handle Enter key
 cmdInput.addEventListener('keydown', async (e) => {
-  if(locked) { e.preventDefault(); return; }
-  if(e.key === 'Enter') {
+  if (e.key === 'Enter') {
     e.preventDefault();
+    if (locked) return; // Don't do anything if already locked
+    
     const raw = (cmdInput.value || '').trim();
     lastCommand = raw;
-    if(raw.toLowerCase() === 'go-to-main') {
-      await executeGoToMain();
+    cmdInput.value = ''; // Clear input field immediately
+    locked = true; // Lock input
+
+    if (raw.toLowerCase() === 'go-to-main') {
+      cmdInput.disabled = true; // Disable input for 'go-to-main' path
+      await executeGoToMain(raw);
+      // No unlock needed, page will redirect
     } else {
-      // fake "not found" output, but only show minimal info
+      // Handle "not found"
       appendLine(`user@site:~$ ${raw}`, 'line');
       const nf = appendLine('', 'line error');
       await typeLine(nf, `Command not found: ${raw}`, 12);
       appendLine("Hint: only 'go-to-main' is recognized.", 'line muted');
-      cmdInput.value = '';
+      
+      locked = false; // Unlock after error message
+      cmdInput.focus(); // Re-focus
     }
-  } else if(e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    if (locked) { e.preventDefault(); return; } // Prevent history while locked
     // simple recall last command
     e.preventDefault();
-    if(e.key === 'ArrowUp' && lastCommand) cmdInput.value = lastCommand;
-    if(e.key === 'ArrowDown') cmdInput.value = '';
+    if (e.key === 'ArrowUp' && lastCommand) cmdInput.value = lastCommand;
+    if (e.key === 'ArrowDown') cmdInput.value = '';
+  } else if (locked) {
+    // Prevent any other key presses while locked
+    e.preventDefault();
   }
 });
 
 // clickable run button for convenience
 runBtn.addEventListener('click', async () => {
-  if(locked) return;
+  if (locked) return;
   cmdInput.value = 'go-to-main';
   cmdInput.focus();
   // small delay to mimic manual enter
@@ -281,7 +404,7 @@ runBtn.addEventListener('click', async () => {
 
 // tiny auto-effect: when page loads, type the initial prompt into input quickly (cosmetic)
 window.addEventListener('load', async () => {
-  // simulate typing into the cmd input the command suggestion, then clear lightly
+  // simulate typing into the cmd input the command suggestion
   const demo = 'go-to-main';
   for(let i=0;i<demo.length;i++){
     cmdInput.value += demo[i];
